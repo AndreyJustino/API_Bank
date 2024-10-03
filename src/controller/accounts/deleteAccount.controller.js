@@ -4,6 +4,7 @@ import { accounts } from "../../model/model.js";
 // Define uma função assíncrona chamada `deleteAccounts` que será usada para deletar contas no sistema.
 async function deleteAccounts(req, res) {
     try {
+        console.log("ola mundo")
         // Aqui o código principal para deletar uma conta será implementado.
         // É onde você faria a busca da conta pelo ID ou algum critério,
         // e depois executaria o comando para deletar a conta do banco de dados.
