@@ -25,7 +25,7 @@ routerUser.delete("/deleteUser", deleteUser);
 
 // Define uma rota HTTP PUT para atualizar informações de um usuário.
 // Quando uma requisição PUT for feita para "/putUser", o controlador `putUser` será executado.
-routerUser.put("/putUser", putUser);
+routerUser.put("/putUser/:id", putUser);
 
 // Exporta o roteador configurado para que ele possa ser usado em outros arquivos da aplicação, como na definição da API principal.
 export default routerUser;
