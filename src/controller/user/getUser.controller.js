@@ -1,18 +1,47 @@
-// Importa o modelo `user` do arquivo "model.js", que representa a tabela de usuários no banco de dados.
 import { user } from "../../model/model.js";
 
-// Define uma função assíncrona chamada `getUser` que será utilizada para buscar informações de um usuário.
 async function getUser(req, res) {
     try {
-        // Aqui será implementada a lógica para buscar informações do usuário no banco de dados.
-        // Normalmente, você utilizaria um identificador (como um ID) recebido dos parâmetros da requisição (req.params)
-        // ou do corpo da requisição (req.body) para encontrar o usuário correspondente.
+        // Obtém o email ou ID dos parâmetros da requisição (req.params)
+        const { id, email } = req.body;
+         
+        // Verifica se o email ou ID foi fornecido
+        if (!id && !email) {
+            return res.status(400).json({
+                message: "ID ou Email do usuário é necessário.",
+                status: 400
+            });
+        }
+
+        // Busca o usuário no banco de dados pelo ID ou email
+        const userInput = await user.findOne({
+            where: id ? { id } : { email }
+        });
+
+        // Se o usuário for encontrado, retorna os dados do usuário
+        if (userInput) {
+            return res.status(200).json({
+                message: "Usuário encontrado.",
+                user: userInput,
+                status: 200
+            });
+        } else {
+            // Se o usuário não for encontrado, retorna um erro 404
+            return res.status(404).json({
+                message: "Usuário não encontrado.",
+                status: 404
+            });
+        }
+
     } catch (error) {
-        // Se ocorrer qualquer erro durante a execução, ele será capturado e registrado no console com uma mensagem descritiva.
-        console.log("Error in getUser: ", error.message);
+        // Captura qualquer erro que ocorrer e retorna um status 500
+        return res.status(500).json({
+            message: "Erro ao obter o usuário.",
+            erro: error.message,
+            status: 500
+        });
     }
 }
 
-// Exporta a função `getUser` para que ela possa ser utilizada em outros arquivos,
-// como nas rotas ou controladores da API.
+
 export default getUser;
