@@ -1,3 +1,4 @@
+import { cpfTreatment, date, mobileNumberTreatment } from "../../middleware/treatment.js";
 import { user } from "../../model/model.js";
 import bcrypt from 'bcrypt';
 
@@ -5,10 +6,10 @@ import bcrypt from 'bcrypt';
 async function postUser(req, res) {
     try {
         // Obtém os dados do corpo da requisição (req.body)
-        const { name, email, password, cpf, telefone, } = req.body;
+        const { name, email, password, cpf, data_nascimento, telefone } = req.body;
 
         // Verifica se todos os campos obrigatórios foram preenchidos
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !cpf || !data_nascimento || !telefone){
             return res.status(400).json({
                 message: "Preencha todos os campos obrigatórios: nome, email, senha.",
                 status: 400
@@ -28,14 +29,16 @@ async function postUser(req, res) {
         }
 
         // Gera um hash para a senha usando bcrypt
-        const saltRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         // Cria um novo usuário no banco de dados
         const newUser = await user.create({
             name,
             email,
-            password: hashedPassword  // Armazena a senha criptografada
+            password: hashedPassword,
+            cpf: cpfTreatment(cpf),
+            date_birth: date(data_nascimento),
+            number_phone: mobileNumberTreatment(telefone)
         });
 
         // Retorna uma resposta de sucesso com os dados do novo usuário

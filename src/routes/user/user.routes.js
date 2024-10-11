@@ -13,7 +13,7 @@ const routerUser = Router();
 
 // Define uma rota HTTP GET para buscar informações sobre usuários.
 // Quando uma requisição GET for feita para "/getUser", o controlador `getUser` será executado.
-routerUser.get("/getUser", getUser);
+routerUser.get("/getUser/:email", getUser);
 
 // Define uma rota HTTP POST para criar um novo usuário.
 // Quando uma requisição POST for feita para "/postUser", o controlador `postUser` será executado.
