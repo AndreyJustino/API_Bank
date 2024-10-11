@@ -2,20 +2,22 @@ import { user } from "../../model/model.js";
 
 async function getUser(req, res) {
     try {
-        // Obtém o email ou ID dos parâmetros da requisição (req.params)
-        const { id, email } = req.body;
+        // Obtém o email do parâmetro da requisição (req.params)
+        const { email } = req.params;
          
-        // Verifica se o email ou ID foi fornecido
-        if (!id && !email) {
+        // Verifica se o email foi fornecido
+        if (!email) {
             return res.status(400).json({
-                message: "ID ou Email do usuário é necessário.",
+                message: "Email do usuário é necessário.",
                 status: 400
             });
         }
 
-        // Busca o usuário no banco de dados pelo ID ou email
+        // Busca o usuário no banco de dados pelo email
         const userInput = await user.findOne({
-            where: id ? { id } : { email }
+            where: {
+                email: email
+            }
         });
 
         // Se o usuário for encontrado, retorna os dados do usuário
