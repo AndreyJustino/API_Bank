@@ -1,4 +1,6 @@
+import { cpfTreatment, date, mobileNumberTreatment } from "../../middleware/treatment.js";
 import { user } from "../../model/model.js";
+import bcrypt from "bcrypt"
 
 // Define uma função assíncrona chamada `putUser` que será utilizada para atualizar as informações de um usuário existente.
 async function putUser(req, res) {
@@ -7,7 +9,7 @@ async function putUser(req, res) {
         const { id } = req.params;
 
         // Obtém os novos dados do usuário do corpo da requisição (req.body)
-        const { name, email, password, cpf, aniversario, telefone } = req.body;
+        const { name, email, password, cpf, data_nascimento, telefone } = req.body;
 
         // Verifica se o ID foi fornecido
         if (!id) {
@@ -27,16 +29,23 @@ async function putUser(req, res) {
                 status: 404
             });
         }
-
+        console.log(">>>>>>", userDB.date_birth)
         // Atualiza os campos do usuário (apenas se fornecidos)
-        userDB.name = name || userDB.name;
-        userDB.email = email || userDB.email;
+        
+        userDB.name = name ? name : userDB.name
+        
+        userDB.email = email ? email : userDB.email
+        
+        userDB.cpf = cpf ? cpfTreatment(cpf) : userDB.cpf
+        
+        userDB.date_birth = data_nascimento ? date(data_nascimento) : userDB.date_birth;
+        
+        userDB.number_phone = telefone ? mobileNumberTreatment(telefone) : userDB.number_phone;
 
         // Se a senha for fornecida, criptografa a nova senha antes de atualizar
         if (password) {
-            const bcrypt = require('bcrypt');
-            const saltRounds = 10;
-            const hashedPassword = await bcrypt.hash(password, saltRounds);
+            
+            const hashedPassword = await bcrypt.hash(password, 10);
             userDB.password = hashedPassword;
         }
 
