@@ -1,4 +1,4 @@
-import { user } from "../../model/model";
+import { user } from "../../model/model.js";
 import { compare } from "bcrypt";
 
 async function postLogin(req,res) {

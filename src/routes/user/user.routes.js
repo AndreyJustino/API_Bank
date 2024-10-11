@@ -19,7 +19,7 @@ routerUser.get("/getUser/:email", getUser);
 // Define uma rota HTTP POST para criar um novo usuário.
 // Quando uma requisição POST for feita para "/postUser", o controlador `postUser` será executado.
 routerUser.post("/postUser", postUser);
-routerUser.post("/login", postLogin);
+routerUser.post("/loginUser", postLogin);
 
 // Define uma rota HTTP DELETE para deletar um usuário.
 // Quando uma requisição DELETE for feita para "/deleteUser", o controlador `deleteUser` será executado.
