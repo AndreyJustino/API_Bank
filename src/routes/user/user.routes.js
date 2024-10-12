@@ -7,17 +7,19 @@ import deleteUser from "../../controller/user/deleteUser.controller.js";
 import getUser from "../../controller/user/getUser.controller.js";
 import postUser from "../../controller/user/postUser.controller.js";
 import putUser from "../../controller/user/putUser.controller.js";
+import postLogin from "../../controller/user/postLogin.js";
 
 // Cria uma instância do roteador, onde serão configuradas as rotas para as operações relacionadas aos usuários.
 const routerUser = Router();
 
 // Define uma rota HTTP GET para buscar informações sobre usuários.
 // Quando uma requisição GET for feita para "/getUser", o controlador `getUser` será executado.
-routerUser.get("/getUser", getUser);
+routerUser.get("/getUser/:email", getUser);
 
 // Define uma rota HTTP POST para criar um novo usuário.
 // Quando uma requisição POST for feita para "/postUser", o controlador `postUser` será executado.
 routerUser.post("/postUser", postUser);
+routerUser.post("/loginUser", postLogin);
 
 // Define uma rota HTTP DELETE para deletar um usuário.
 // Quando uma requisição DELETE for feita para "/deleteUser", o controlador `deleteUser` será executado.
