@@ -30,7 +30,7 @@ async function deleteUser(req, res) {
         }
 
         // Compara a senha fornecida com a senha criptografada no banco de dados.
-        const validarPassword = await bcrypt.compare(user.password, userDB.password);
+        const validarPassword = await bcrypt.compare(userInput.password, userDB.password);
 
         if (!validarPassword) {
             // Se a senha estiver incorreta, retorna uma resposta de erro.
