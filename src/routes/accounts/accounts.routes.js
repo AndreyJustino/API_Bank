@@ -21,7 +21,7 @@ routerAccounts.post("/postAccounts", postAccounts);
 
 // Define uma rota HTTP DELETE para deletar uma conta.
 // Quando uma requisição DELETE é feita para "/deleteAccounts", o controlador `deleteAccounts` será executado.
-routerAccounts.delete("/deleteAccounts", deleteAccounts);
+routerAccounts.delete("/deleteAccounts/:userId", deleteAccounts);
 
 // Define uma rota HTTP PUT para atualizar uma conta.
 // Quando uma requisição PUT é feita para "/putAccount", o controlador `putAccount` será executado.
