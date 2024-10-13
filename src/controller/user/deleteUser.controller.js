@@ -41,9 +41,9 @@ async function deleteUser(req, res) {
         }
 
         // Deleta o usuário no banco de dados se a senha for válida.
-        await usuario.destroy({
+        await user.destroy({
             where: {
-                email: user.email
+                email: userInput.email
             }
         });
 
