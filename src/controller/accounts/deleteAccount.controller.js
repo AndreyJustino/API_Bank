@@ -2,15 +2,15 @@ import { accounts } from "../../model/model.js";
 
 export default async function deleteAccount(req, res) {
     try {
-        const { account_id } = req.params;
+        const { userId } = req.params;
 
         
-        if (!account_id) {
+        if (!userId) {
             return res.status(400).json({ message: "ID da conta é obrigatório." });
         }
 
         
-        const account = await accounts.findOne({ where: { id: account_id } });
+        const account = await accounts.findOne({ where: { user_id: userId } });
 
        
         if (!account) {
@@ -18,7 +18,7 @@ export default async function deleteAccount(req, res) {
         }
 
         
-        await accounts.destroy({ where: { id: account_id } });
+        await accounts.destroy({ where: { user_id: userId } });
 
         return res.status(200).json({ message: "Conta excluída com sucesso." });
     } catch (error) {
