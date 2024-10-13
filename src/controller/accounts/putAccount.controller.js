@@ -1,19 +1,22 @@
-// Importa o modelo `accounts` do arquivo "model.js", que representa a tabela de contas no banco de dados.
-import { accounts } from "../../model/model.js";
-
-// Define uma função assíncrona chamada `putAccount` que será utilizada para atualizar informações de uma conta existente.
-async function putAccount(req, res) {
+export default async function updateAccount(req, res) {
     try {
-        // Aqui o código para atualizar a conta no banco de dados será implementado.
-        // Normalmente, você pode receber os dados atualizados da conta do corpo da requisição (req.body)
-        // e o ID da conta a ser atualizada dos parâmetros da requisição (req.params).
-    } catch (error) {
-        // Se ocorrer qualquer erro durante a execução, ele será capturado aqui.
-        // O erro será registrado no console com uma mensagem descritiva.
-        console.error("Error in page putAccount:", error.message);
-    }
-}
+        const { id } = req.params;
+        const { balance, type } = req.body;
 
-// Exporta a função `putAccount` para que ela possa ser utilizada em outros arquivos,
-// como nas rotas ou controladores da API.
-export default putAccount;
+        const account = await accounts.findOne({ where: { id } });
+
+        if (!account) {
+            return res.status(404).json({ message: "Conta não encontrada." });
+        }
+
+        
+        if (balance !== undefined) account.balance = balance;
+        if (type) account.type = type;
+
+        await account.save();
+
+        return res.status(200).json({ message: "Conta atualizada com sucesso.", account });
+    } catch (error) {
+        return res.status(500).json({ message: "Erro ao atualizar conta.", error: error.message });
+    }
+}
