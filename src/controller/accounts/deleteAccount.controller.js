@@ -1,20 +1,27 @@
-// Importa o modelo `accounts` do arquivo "model.js", que representa a tabela de contas no banco de dados.
 import { accounts } from "../../model/model.js";
 
-// Define uma função assíncrona chamada `deleteAccounts` que será usada para deletar contas no sistema.
-async function deleteAccounts(req, res) {
+export default async function deleteAccount(req, res) {
     try {
-        console.log("ola mundo")
-        // Aqui o código principal para deletar uma conta será implementado.
-        // É onde você faria a busca da conta pelo ID ou algum critério,
-        // e depois executaria o comando para deletar a conta do banco de dados.
+        const { account_id } = req.params;
+
+        // Verifica se o ID da conta foi fornecido
+        if (!account_id) {
+            return res.status(400).json({ message: "ID da conta é obrigatório." });
+        }
+
+        // Busca a conta com o ID fornecido
+        const account = await accounts.findOne({ where: { id: account_id } });
+
+        // Verifica se a conta foi encontrada
+        if (!account) {
+            return res.status(404).json({ message: "Conta não encontrada." });
+        }
+
+        // Remove a conta da base de dados
+        await accounts.destroy({ where: { id: account_id } });
+
+        return res.status(200).json({ message: "Conta excluída com sucesso." });
     } catch (error) {
-        // Se ocorrer qualquer erro durante a execução, ele será capturado aqui.
-        // O erro será registrado no console com uma mensagem descritiva.
-        console.error("Erro in deleteAccounts:", error.message);
+        return res.status(500).json({ message: "Erro ao excluir conta.", error: error.message });
     }
 }
-
-// Exporta a função `deleteAccounts` para que ela possa ser utilizada em outros arquivos,
-// como nas rotas ou controladores da API.
-export default deleteAccounts;
