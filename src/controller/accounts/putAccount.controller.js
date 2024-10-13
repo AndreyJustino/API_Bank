@@ -9,7 +9,7 @@ export default async function updateAccount(req, res) {
             return res.status(404).json({ message: "Conta não encontrada." });
         }
 
-        // Atualizar os campos permitidos
+        
         if (balance !== undefined) account.balance = balance;
         if (type) account.type = type;
 
