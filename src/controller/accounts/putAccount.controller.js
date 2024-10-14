@@ -1,3 +1,5 @@
+import { accounts } from "../../model/model";
+
 export default async function updateAccount(req, res) {
     try {
         const { id } = req.params;
