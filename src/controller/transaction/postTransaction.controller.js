@@ -2,17 +2,15 @@ import { transactions } from "../../model/model.js";
 
 async function postTransaction(req, res) {
     try {
-        // Aqui será implementada a lógica para criar uma nova transação no banco de dados.
-        // Os dados da nova transação serão extraídos do corpo da requisição (req.body).
+        // Extraindo os dados da transação do corpo da requisição
         const { amount, type, description, accountId } = req.body;
 
-        // Verifica se todos os dados obrigatórios foram fornecidos.
-        // Se algum dado obrigatório estiver faltando, retorna um erro 400 informando que os campos são obrigatórios.
-        if (!amount || !type || !accountId) {
-            return res.status(400).json({ message: "Todos os campos obrigatórios devem ser preenchidos." });
+        // Verifica se todos os campos obrigatórios foram fornecidos e não são valores vazios.
+        if (!amount || !type || !accountId || accountId.trim() === "") {
+            return res.status(400).json({ message: "Todos os campos obrigatórios devem ser preenchidos e não podem estar vazios." });
         }
 
-        // Cria uma nova transação usando o modelo `transactions` e os dados recebidos da requisição.
+        // Cria uma nova transação no banco de dados
         const newTransaction = await transactions.create({
             amount,
             type,
@@ -20,14 +18,14 @@ async function postTransaction(req, res) {
             accountId
         });
 
-        // Retorna a transação recém-criada como resposta ao cliente.
+        // Retorna a nova transação criada
         res.status(201).json(newTransaction);
 
     } catch (error) {
-        
+        // Log do erro no servidor
         console.error("Error in postTransaction: ", error.message);
 
-        // Retorna uma resposta de erro 500 ao cliente, indicando que ocorreu um erro no servidor.
+        // Retorna uma resposta de erro 500 indicando problema no servidor
         res.status(500).json({ message: "Erro ao criar a transação." });
     }
 }
