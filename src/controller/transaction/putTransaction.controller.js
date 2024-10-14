@@ -8,14 +8,9 @@ async function putTransaction(req, res) {
         // Os dados atualizados da transação serão extraídos do corpo da requisição (req.body).
         const { amount, type, description, accountId } = req.body;
 
-        // Verifica se o ID da transação foi fornecido.
-        if (!id) {
-            return res.status(400).json({ message: "ID da transação é obrigatório." });
-        }
-
-        // Verifica se todos os campos obrigatórios para a atualização foram fornecidos.
-        if (!amount || !type || !accountId) {
-            return res.status(400).json({ message: "Todos os campos obrigatórios devem ser preenchidos." });
+        // Verifica se o ID da transação e todos os campos obrigatórios foram fornecidos.
+        if (!id || !amount || !type || !accountId) {
+            return res.status(400).json({ message: "Todos os campos obrigatórios, incluindo o ID, devem ser preenchidos." });
         }
 
         // Encontra a transação no banco de dados e atualiza os campos com os novos valores.
@@ -32,7 +27,6 @@ async function putTransaction(req, res) {
         // Retorna uma resposta de sucesso ao cliente indicando que a transação foi atualizada.
         res.status(200).json({ message: "Transação atualizada com sucesso." });
     } catch (error) {
-        
         console.error("Error in putTransaction: ", error.message);
 
         // Retorna uma resposta de erro 500 ao cliente, indicando que ocorreu um erro no servidor.
