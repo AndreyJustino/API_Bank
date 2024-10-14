@@ -3,17 +3,19 @@ import { transactions } from "../../model/model.js";
 async function postTransaction(req, res) {
     try {
         // Extraindo os dados da transação do corpo da requisição
-        const { type, accountId } = req.body;
+        const { type, account_id, date_transactions, value } = req.body;
 
         // Verifica se todos os campos obrigatórios foram fornecidos e não são valores vazios.
-        if (!type || !accountId || accountId.trim() === "") {
+        if (!type || !account_id || !date_transactions || value === undefined) {
             return res.status(400).json({ message: "Todos os campos obrigatórios devem ser preenchidos e não podem estar vazios." });
         }
 
         // Cria uma nova transação no banco de dados
         const newTransaction = await transactions.create({
             type,
-            accountId
+            account_id, 
+            date_transactions, 
+            value
         });
 
         // Retorna a nova transação criada
