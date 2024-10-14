@@ -11,8 +11,8 @@ routerTransaction.get("/getTransaction", getTransaction);
 
 routerTransaction.post("/postTransaction", postTransaction);
 
-routerTransaction.delete("/deleteTransaction", deleteTransaction);
+routerTransaction.delete("/deleteTransaction/:id", deleteTransaction);
 
-routerTransaction.put("/putTransaction", putTransaction);
+routerTransaction.put("/putTransaction/:id", putTransaction);
 
 export default routerTransaction;
