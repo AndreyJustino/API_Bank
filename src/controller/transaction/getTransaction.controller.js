@@ -15,12 +15,7 @@ async function getTransaction(req, res) {
 
         // Se houver transações, envia os dados de volta ao cliente como uma resposta JSON.
         res.status(200).json(allTransactions);
-    } catch (error) {
-        // Se ocorrer qualquer erro durante a execução, ele será capturado aqui.
-        // O erro será registrado no console com uma mensagem descritiva para ajudar na depuração.
-
-        
-    } catch (error) {
+    }catch (error) {
 
         console.log("Error in getTransaction:", error.message);
 
