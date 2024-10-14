@@ -2,10 +2,14 @@ import { transactions } from "../../model/model.js";
 
 async function getTransaction(req, res) {
     try {
-
+        const id = req.params.id;
         // Aqui será implementada a lógica para buscar as transações no banco de dados.
         // O modelo `transactions` será usado para buscar todas as transações armazenadas.
-        const allTransactions = await transactions.findAll();
+        const allTransactions = await transactions.findAll({
+            where: {
+                account_id: id
+            }
+        });
 
         // Verifica se existem transações no banco de dados.
         // Se não houver transações, retorna uma resposta 404 informando que não há dados disponíveis.
@@ -14,7 +18,11 @@ async function getTransaction(req, res) {
         }
 
         // Se houver transações, envia os dados de volta ao cliente como uma resposta JSON.
-        res.status(200).json(allTransactions);
+        res.status(200).json({
+            message: "Transações encontradas com sucesso",
+            data: allTransactions,
+            status: 200
+        });
     }catch (error) {
 
         console.log("Error in getTransaction:", error.message);

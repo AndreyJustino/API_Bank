@@ -7,7 +7,7 @@ import putTransaction from "../../controller/transaction/putTransaction.controll
 
 const routerTransaction = Router();
 
-routerTransaction.get("/getTransaction", getTransaction);
+routerTransaction.get("/getTransaction/:id", getTransaction);
 
 routerTransaction.post("/postTransaction", postTransaction);
 
