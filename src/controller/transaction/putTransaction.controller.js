@@ -32,9 +32,6 @@ async function putTransaction(req, res) {
         // Retorna uma resposta de sucesso ao cliente indicando que a transação foi atualizada.
         res.status(200).json({ message: "Transação atualizada com sucesso." });
     } catch (error) {
-        // Se ocorrer qualquer erro durante a execução, ele será capturado e registrado no console com uma mensagem descritiva.
-        
-    } catch (error) {
         
         console.error("Error in putTransaction: ", error.message);
 
