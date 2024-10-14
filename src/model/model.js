@@ -72,10 +72,13 @@ export const transactions = sequelize.define("Transactions", {
     },
     account_id: {
         type: DataTypes.UUIDV4, 
+        allowNull: false,
         references: {
             model: accounts,
             key: "id" 
-        }
+        },
+        onDelete: 'CASCADE', 
+        onUpdate: 'CASCADE' 
     },
     date_transactions: {
         type: DataTypes.DATEONLY,
