@@ -1,9 +1,8 @@
-// Importa o modelo `transactions` do arquivo "model.js", que representa a tabela de transações no banco de dados.
 import { transactions } from "../../model/model.js";
 
-// Define uma função assíncrona chamada `getTransaction` que será utilizada para recuperar transações do banco de dados.
 async function getTransaction(req, res) {
     try {
+
         // Aqui será implementada a lógica para buscar as transações no banco de dados.
         // O modelo `transactions` será usado para buscar todas as transações armazenadas.
         const allTransactions = await transactions.findAll();
@@ -19,6 +18,10 @@ async function getTransaction(req, res) {
     } catch (error) {
         // Se ocorrer qualquer erro durante a execução, ele será capturado aqui.
         // O erro será registrado no console com uma mensagem descritiva para ajudar na depuração.
+
+        
+    } catch (error) {
+
         console.log("Error in getTransaction:", error.message);
 
         // Retorna uma resposta de erro 500 ao cliente, indicando que ocorreu um erro no servidor.
@@ -26,6 +29,4 @@ async function getTransaction(req, res) {
     }
 }
 
-// Exporta a função `getTransaction` para que ela possa ser utilizada em outros arquivos,
-// como nas rotas ou controladores da API.
 export default getTransaction;

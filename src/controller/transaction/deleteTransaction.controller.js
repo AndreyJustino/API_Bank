@@ -1,7 +1,5 @@
-// Importa o modelo `transactions` do arquivo "model.js", que representa a tabela de transações no banco de dados.
 import { transactions } from "../../model/model.js";
 
-// Define uma função assíncrona chamada `deleteTransaction` que será utilizada para deletar uma transação existente.
 async function deleteTransaction(req, res) {
     try {
         // Aqui o código para deletar a transação no banco de dados será implementado.
@@ -21,9 +19,8 @@ async function deleteTransaction(req, res) {
 
         // Retorna uma resposta de sucesso informando que a transação foi deletada.
         res.status(200).json({ message: "Transação deletada com sucesso" });
+
     } catch (error) {
-        // Se ocorrer qualquer erro durante a execução, ele será capturado aqui.
-        // O erro será registrado no console.
         console.error(error);
 
         // Retorna uma resposta 500 (erro interno do servidor) com a mensagem de erro.
@@ -31,6 +28,4 @@ async function deleteTransaction(req, res) {
     }
 }
 
-// Exporta a função `deleteTransaction` para que ela possa ser utilizada em outros arquivos,
-// como nas rotas ou controladores da API.
 export default deleteTransaction;

@@ -1,7 +1,5 @@
-// Importa o modelo `transactions` do arquivo "model.js", que representa a tabela de transações no banco de dados.
 import { transactions } from "../../model/model.js";
 
-// Define uma função assíncrona chamada `putTransaction` que será utilizada para atualizar informações de uma transação existente.
 async function putTransaction(req, res) {
     try {
         // O ID da transação a ser atualizada será extraído dos parâmetros da requisição (req.params).
@@ -35,6 +33,9 @@ async function putTransaction(req, res) {
         res.status(200).json({ message: "Transação atualizada com sucesso." });
     } catch (error) {
         // Se ocorrer qualquer erro durante a execução, ele será capturado e registrado no console com uma mensagem descritiva.
+        
+    } catch (error) {
+        
         console.error("Error in putTransaction: ", error.message);
 
         // Retorna uma resposta de erro 500 ao cliente, indicando que ocorreu um erro no servidor.
@@ -42,6 +43,4 @@ async function putTransaction(req, res) {
     }
 }
 
-// Exporta a função `putTransaction` para que ela possa ser utilizada em outros arquivos,
-// como nas rotas ou controladores da API.
 export default putTransaction;

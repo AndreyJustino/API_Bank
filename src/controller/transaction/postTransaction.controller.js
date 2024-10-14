@@ -1,7 +1,5 @@
-// Importa o modelo `transactions` do arquivo "model.js", que representa a tabela de transações no banco de dados.
 import { transactions } from "../../model/model.js";
 
-// Define uma função assíncrona chamada `postTransaction` que será utilizada para criar uma nova transação.
 async function postTransaction(req, res) {
     try {
         // Aqui será implementada a lógica para criar uma nova transação no banco de dados.
@@ -24,8 +22,9 @@ async function postTransaction(req, res) {
 
         // Retorna a transação recém-criada como resposta ao cliente.
         res.status(201).json(newTransaction);
+
     } catch (error) {
-        // Se ocorrer qualquer erro durante a execução, ele será capturado e registrado no console com uma mensagem descritiva.
+        
         console.error("Error in postTransaction: ", error.message);
 
         // Retorna uma resposta de erro 500 ao cliente, indicando que ocorreu um erro no servidor.
@@ -33,6 +32,4 @@ async function postTransaction(req, res) {
     }
 }
 
-// Exporta a função `postTransaction` para que ela possa ser utilizada em outros arquivos,
-// como nas rotas ou controladores da API.
 export default postTransaction;

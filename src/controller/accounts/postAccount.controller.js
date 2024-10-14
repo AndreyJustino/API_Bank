@@ -1,19 +1,29 @@
-// Importa o modelo `accounts` do arquivo "model.js", que representa a tabela de contas no banco de dados.
 import { accounts } from "../../model/model.js";
+import { user } from "../../model/model.js";
 
-// Define uma função assíncrona chamada `postAccounts` que será utilizada para criar novas contas.
-async function postAccounts(req, res) {
+export default async function createAccount(req, res) {
     try {
-        // Aqui o código para criar uma nova conta no banco de dados será implementado.
-        // Por exemplo, você pode receber os dados da conta do corpo da requisição (req.body)
-        // e, em seguida, usar o modelo `accounts` para criar a nova conta.
-    } catch (error) {
-        // Se ocorrer qualquer erro durante a execução, ele será capturado aqui.
-        // O erro será registrado no console com uma mensagem descritiva.
-        console.error("Error in postAccount", error.message);
-    }
-}
+        const { user_id, type, balance } = req.body;
 
-// Exporta a função `postAccounts` para que ela possa ser utilizada em outros arquivos,
-// como nas rotas ou controladores da API.
-export default postAccounts;
+        
+        if (!user_id || !type || balance === undefined) {
+            return res.status(400).json({ message: "Preencha todos os campos obrigatórios." });
+        }
+
+        
+        const userExists = await user.findOne({ where: { id: user_id } });
+        if (!userExists) {
+            return res.status(404).json({ message: "Usuário não encontrado." });
+        }
+
+        const newAccount = await accounts.create({
+            user_id,
+            type,
+            balance
+        });
+
+        return res.status(201).json({ message: "Conta criada com sucesso.", account: newAccount });
+    } catch (error) {
+        return res.status(500).json({ message: "Erro ao criar conta.", error: error.message });
+    }
+}
