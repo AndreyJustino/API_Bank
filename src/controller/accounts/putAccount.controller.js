@@ -1,4 +1,4 @@
-import { accounts } from "../../model/model";
+import { accounts } from "../../model/model.js";
 
 export default async function updateAccount(req, res) {
     try {
