@@ -77,7 +77,7 @@ export const transactions = sequelize.define("Transactions", {
             key: "id" 
         }
     },
-    date_transacrions: {
+    date_transactions: {
         type: DataTypes.DATEONLY,
         allowNull: false 
     },
