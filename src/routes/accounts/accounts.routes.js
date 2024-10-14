@@ -13,7 +13,7 @@ const routerAccounts = Router();
 
 // Define uma rota HTTP GET para buscar contas.
 // Quando uma requisição GET é feita para "/getAccounts", o controlador `getAccounts` será executado.
-routerAccounts.get("/getAccounts", getAccounts);
+routerAccounts.get("/getAccounts/:userId", getAccounts);
 
 // Define uma rota HTTP POST para criar uma nova conta.
 // Quando uma requisição POST é feita para "/postAccounts", o controlador `postAccounts` será executado.
