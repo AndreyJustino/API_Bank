@@ -17,5 +17,4 @@ export function mobileNumberTreatment(numero){
     return numero.replace(/\D/g, "");
 }
 
-// console.log(mobileNumberTreatment("(11) 96701-7824"))
 
