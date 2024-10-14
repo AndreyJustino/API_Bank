@@ -1,5 +1,4 @@
-import { transactions } from "../../model/model.js";
-import { accounts } from "../../model/accounts.js";
+import { transactions, accounts } from "../../model/model.js";
 
 async function postTransaction(req, res) {
     try {
